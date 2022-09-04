@@ -1,9 +1,8 @@
+> 参考：
 
 
 
 <div align="center" ><img src="./readme_images/favicon.ico" style="width:150px ;height:150px"   /></div>
-
-<h1 align="center"><a href="http://liangtengyu.com" target="_blank">ToMarkdown</a></h1>
 
 
 
@@ -14,7 +13,7 @@
 
 [>>> 快速开始](./readme_images/start.md)
 
-[>>> 在线体验](http://markdown.liangtengyu.com:9999)
+[>>> 在线体验](http://localhost:9999)
 
 
 ---
@@ -75,8 +74,7 @@
 
 
 
-
-# 测试h2
+# 本地测试h2
 
 ```
 javac H2jdbcCreateDemo.java
@@ -85,4 +83,11 @@ java -cp .:h2/bin/h2-2.1.214.jar H2jdbcCreateDemo
 
 ```
 java -jar target/markdown-0.0.1-SNAPSHOT.jar     
+```
+
+## 本地启动后端服务
+
+```
+mvn clean package -Dmaven.test.skip=true
+java -jar target/markdown-0.0.1-SNAPSHOT.jar
 ```

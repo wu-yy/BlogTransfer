@@ -20,7 +20,7 @@
 	</properties>
 
 
-	<groupId>com.liangtengyu.markdown</groupId>
+	<groupId>com.blog.markdown</groupId>
 	<artifactId>markdown</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
@@ -183,7 +183,7 @@
 					<!-- 基础镜像jdk 1.8-->
 					<!-- <baseImage>java</baseImage> -->
 					<!-- 制作者提供本人信息 -->
-					<!-- <maintainer>liangtengyu.com</maintainer> -->
+					<!-- <maintainer>blog.com</maintainer> -->
 					<!--切换到/ROOT目录 -->
 					<!-- <workdir>/ROOT</workdir> -->
 					<!-- <cmd>["java", "-version"]</cmd> -->
