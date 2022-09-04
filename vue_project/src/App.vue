@@ -2,13 +2,19 @@
     <a-layout id="components-layout-demo-custom-trigger">
       <a-layout-sider v-model="collapsed" :trigger="null" collapsible>
         <div class="logo" >
-          <span style="color:#1890ff;font-size: 22px; font-weight: bold">| ToMarkDown |</span>
+          <span style="color:#1890ff;font-size: 22px; font-weight: bold">| 转移博客 |</span>
         </div>
         <a-menu theme="dark"  style="height: 1080px" mode="inline" :default-selected-keys="['1']">
           <a-menu-item key="Home"   @click="toNav">
             <a-icon type="clock-circle" />
             <span>解析</span>
           </a-menu-item>
+
+          <a-menu-item key="LoginCsdn"   @click="toNav">
+            <a-icon type="clock-circle" />
+            <span>登录CSDN</span>
+          </a-menu-item>
+
           <a-menu-item key="config"   @click="toNav">
             <a-icon type="clock-circle" />
             <span>配置</span>

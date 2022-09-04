@@ -17,6 +17,36 @@ public class MarkDown {
 
     private String imageName;
 
+    private String title;
+
+    private String article_lable;
+
+    private String fenlei_lable;
+
+    public String getTitle() {
+     return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getArticleLable() {
+        return article_lable;
+    }
+       
+    public void setArticleLable(String article_lable) {
+        this.article_lable = article_lable;
+    }
+
+    public String getFenleiLable() {
+        return fenlei_lable;
+    }
+       
+    public void setFenleiLable(String fenlei_lable) {
+           this.fenlei_lable = fenlei_lable;
+    }
+
     public String getWebsite() {
         return website;
     }

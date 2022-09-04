@@ -23,9 +23,6 @@ import java.util.Map;
 @RequestMapping("/resolve")
 public class RequestController {
 
-
-
-
     @Autowired
     SaveFileService saveFileService;
 
@@ -46,10 +43,11 @@ public class RequestController {
         String result = null;
         try {
             log.info("开始解析 请求地址为: "+markDown.getBlogUrl()+" 请求ID: "+request.getSession().getId());
+            log.info("文章的名字:");
             result = ResolveService.get(markDown);
             resultMap.put("code","0");
             resultMap.put("markdown",result);
-            log.info(saveFileService.saveToFile(result));
+            log.info(saveFileService.saveToFile(result, markDown));
             log.info("解析完成 返回markdown结果 "+request.getSession().getId());
             log.info("-------------------------------------------------------------");
         } catch (Exception e) {

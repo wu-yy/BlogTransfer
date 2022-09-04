@@ -19,6 +19,10 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.UUID;
+import java.util.Date;
+import com.liangtengyu.markdown.utils.DocInfo;
+import java.util.ArrayList;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -27,15 +31,25 @@ public abstract class MarkDownService implements HandleService {
 
     @Override
     public String getBlogContent(MarkDown markDown) {
-
         // 1. 获取 Document
-        Document document = getDocument(markDown.getBlogUrl());
+        String blog_url = markDown.getBlogUrl();
+        log.info("1.获取document..."+ blog_url);
+        Document document = getDocument(blog_url);
 
+        log.info("2.获取Document的信息");
         // 2.提取 Document 中的博文信息
-        document = getHtmlContent(document);
+        Document new_document = getHtmlContent(document);
 
+        // 2.1 提取文章的标题和其他的信息
+        log.info("2.1 提取文章的标题和其他的信息");
+        DocInfo info = GetDocInfo(document);
+        markDown.setTitle(info.TITLE);
+        markDown.setArticleLable(info.ARTICLE_LABLE);
+        markDown.setFenleiLable(info.FENLEI_LABLE);
+
+        log.info("3.下载图片，并进行替换");
         // 3.下载图片，并进行替换
-        String htmlContent = convertHtml(markDown,document);
+        String htmlContent = convertHtml(markDown, new_document);
 
         // 转换为 markdown
         Remark remark = new Remark();
@@ -206,6 +220,49 @@ public abstract class MarkDownService implements HandleService {
         } catch (IOException e) {
             throw new RuntimeException("解析地址，获取 Document 对象失败..",e);
         }
+    }
+
+    @Override
+    public DocInfo GetDocInfo(Document document) {
+        DocInfo info = new DocInfo();
+        log.info("CSDNHandleService getHtmlContent");
+        Document new_doc = document;
+        Element mainElement = new_doc.getElementById("mainBox");
+
+        // 不是 Markdown，则获取 HTML
+        if(mainElement == null){
+            mainElement = new_doc.getElementById("htmledit_views");
+        }
+
+        Elements tags = mainElement.getElementsByClass("artic-tag-box");
+
+        String article_lable = "";
+        String fenlei_lable = "";
+        if (tags.size() > 0) {
+            Elements lables = tags.get(0).getElementsByTag("a");
+            if (lables.size() > 2) {
+                article_lable = lables.get(0).text();
+                List<String> feilei_lable_s = new ArrayList<String>();
+                for (Element iterable_element : lables.subList(1, lables.size())) {
+                    feilei_lable_s.add(iterable_element.text());
+                }
+                fenlei_lable  =  String.join(",", feilei_lable_s);
+            }
+        }
+        log.info("article_lable:" + article_lable + " fenlei_lable:" + fenlei_lable);
+        info.ARTICLE_LABLE = article_lable;
+        info.FENLEI_LABLE = fenlei_lable;
+
+        String htmlContent = mainElement.getElementById("content_views").html();
+
+        new_doc = Jsoup.parse(htmlContent);
+
+        Element title_ele = mainElement.getElementById("articleContentId");
+        String title = title_ele.text();
+        log.info("文章标题:" + title);
+        info.TITLE = title;
+
+        return info;
     }
 
 

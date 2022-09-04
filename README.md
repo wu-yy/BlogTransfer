@@ -73,3 +73,16 @@
  - 图片本地保存🐶
  - 图片本地代理服务🐼
 
+
+
+
+# 测试h2
+
+```
+javac H2jdbcCreateDemo.java
+java -cp .:h2/bin/h2-2.1.214.jar H2jdbcCreateDemo
+```
+
+```
+java -jar target/markdown-0.0.1-SNAPSHOT.jar     
+```

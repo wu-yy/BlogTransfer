@@ -3,9 +3,7 @@ package com.liangtengyu.markdown.service.Impl;
 import com.alibaba.fastjson.JSONObject;
 import com.liangtengyu.markdown.config.ApplicationConfig;
 import com.liangtengyu.markdown.dao.SETTINGDao;
-import com.liangtengyu.markdown.dao.UserTemplateDao;
 import com.liangtengyu.markdown.entity.SETTING;
-import com.liangtengyu.markdown.entity.UserTemplate;
 import com.liangtengyu.markdown.service.SettingService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,10 +27,6 @@ public class SettingServiceImpl implements SettingService {
 
     @Autowired
     SETTINGDao settingDao;
-
-    @Autowired
-    UserTemplateDao userTemplateDao;
-
 
 
     @Override
@@ -63,8 +57,4 @@ public class SettingServiceImpl implements SettingService {
         return 1;
     }
 
-    @Override
-    public UserTemplate getOneUserTemplate(Integer id) {
-        return userTemplateDao.getOne(id);
-    }
 }

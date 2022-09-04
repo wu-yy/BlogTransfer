@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import LoginCsdn from '../views/LoginCsdn.vue'
 
 Vue.use(VueRouter)
 
@@ -15,6 +16,12 @@ Vue.use(VueRouter)
     name: 'sy',
     component: Home
   },
+  {
+    path: '/LoginCsdn',
+    name: 'LoginCsdn',
+    component: LoginCsdn
+  },
+
   {
     path: '/upload',
     name: 'upload',

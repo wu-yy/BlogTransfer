@@ -3,8 +3,9 @@ package com.liangtengyu.markdown.service;
 
 import com.liangtengyu.markdown.entity.MarkDown;
 import org.springframework.stereotype.Service;
-
+import org.jsoup.nodes.Document;
 import java.util.Map;
+import com.liangtengyu.markdown.utils.DocInfo;
 
 public interface HandleService {
 
@@ -16,6 +17,7 @@ public interface HandleService {
      */
     String getBlogContent(MarkDown markDown);
 
+    DocInfo GetDocInfo(Document document);
 
 
 }

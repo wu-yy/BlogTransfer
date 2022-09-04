@@ -55,6 +55,12 @@ public class MarkDownUtil {
             net = split[0];
         }
         log.info("请求链接>>> {} 来源解析为:{}",url,net);
+        if (net.equals("blog")) {
+            net = "csdn";
+            log.info("请求链接2>>> {} 来源解析为:{}",url,net);
+        } else {
+            log.info("请求链接3>>> {} 来源解析为:{}",url,net);
+        }
         return net;
     }
     public static String generatorFileName() {

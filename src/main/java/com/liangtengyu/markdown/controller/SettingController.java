@@ -3,7 +3,6 @@ package com.liangtengyu.markdown.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.liangtengyu.markdown.entity.SETTING;
-import com.liangtengyu.markdown.entity.UserTemplate;
 import com.liangtengyu.markdown.service.SettingService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

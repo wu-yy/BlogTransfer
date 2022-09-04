@@ -3,6 +3,7 @@ package com.liangtengyu.markdown.service.Impl;
 import com.liangtengyu.markdown.dao.MDDao;
 import com.liangtengyu.markdown.dao.SETTINGDao;
 import com.liangtengyu.markdown.entity.MD;
+import com.liangtengyu.markdown.entity.MarkDown;
 import com.liangtengyu.markdown.entity.SETTING;
 import com.liangtengyu.markdown.service.SaveFileService;
 import com.liangtengyu.markdown.utils.MarkDownUtil;
@@ -16,7 +17,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
-
+import java.util.ArrayList;
 /**
  * @Author: lty
  * @Date: 2020/12/28 14:40
@@ -31,28 +32,44 @@ public class SaveFileServiceImpl implements SaveFileService {
     @Autowired
     SETTINGDao settingDao;
     @Override
-    public String saveToFile(String result) throws IOException {
+    public String saveToFile(String result, MarkDown markDown) throws IOException {
         SETTING mdSavePath = settingDao.findbyname("MD_Save_Path");
+        if (mdSavePath == null) {
+            log.info("mdSavePath is null");
+        }
         System.out.println(mdSavePath);
         //通过此接口,将markdown保存为文本
-        File f = new File(mdSavePath.getConfigValue());
+        File f;
+        if (mdSavePath ==null) {
+            f = new File("/Users/wuyongyu/PycharmProjects/to_markdown/mds");
+        } else {
+            f = new File(mdSavePath.getConfigValue());
+        }
         if (!f.exists()) {
             f.mkdirs();
         }
-        String markdown = MarkDownUtil.generatorFileName();
-        File mdFile = new File(f, markdown);
+        String markdown_filename = MarkDownUtil.generatorFileName();
+        if (!markDown.getTitle().equals("")) {
+            List<String> ss = new ArrayList<String>();
+            ss.add(markDown.getTitle());
+            ss.add(markDown.getArticleLable());
+            ss.add(markDown.getFenleiLable());
+            markdown_filename = String.join("_", ss);
+        }
+        log.info("markdown保存文件名:" + markdown_filename);
+        File mdFile = new File(f, markdown_filename);
         if (!mdFile.exists()) {
             mdFile.createNewFile();
         }
         FileOutputStream outputStream = new FileOutputStream(mdFile);
         outputStream.write(result.getBytes());
         outputStream.close();
-        saveToDatabase(result);
+        saveToDatabase(result, markDown);
         return "markdown file saveToFile success ";
     }
 
     @Override
-    public void saveToDatabase(String result) throws IOException {
+    public void saveToDatabase(String result, MarkDown markDown) throws IOException {
         MD md = new MD();
         md.setCreateTime(new Date());
         md.setCONTEXT(result);
